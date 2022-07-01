@@ -8,7 +8,9 @@ class PasswordManager
   end
 
   def add(service, password)
-    @managed_passwords << { :service => service, :password => password }
+    if valid?(password)
+      @managed_passwords << { :service => service, :password => password }
+    end
   end
 
   def all
@@ -18,11 +20,14 @@ class PasswordManager
   end
 
   def get_password(service)
-    @managed_passwords.each { |item| return item[:password] if item[:service] == service }
+    return @managed_passwords.each { |item| return item[:password] if item[:service] == service }
   end
 
   def services
     return @managed_passwords.map{ |item| "#{item[:service]}\n" }.join
   end
 
+  def valid?(password)
+    return true if password.match?(/[a-zA-Z]{5,9}\d/)
+  end
 end

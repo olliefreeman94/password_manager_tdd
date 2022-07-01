@@ -22,5 +22,11 @@ RSpec.describe PasswordManager do
     it "returns a list of services" do
       expect(@password_manager.services).to eq "netflix\ntwitter\n"
     end
+
+    it "only adds if password is valid" do
+      @password_manager.add("facebook", "oll1e")
+      @password_manager.add("tiktok", "olliefreeman")
+      expect(@password_manager.services).to eq "netflix\ntwitter\n"
+    end
   end
 end
