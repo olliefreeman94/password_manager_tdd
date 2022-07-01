@@ -16,4 +16,13 @@ class PasswordManager
     @managed_passwords.each { |item| string += "Service: #{item[:service]}, Password: #{item[:password]}\n" }
     return string
   end
+
+  def get_password(service)
+    @managed_passwords.each { |item| return item[:password] if item[:service] == service }
+  end
+
+  def services
+    return @managed_passwords.map{ |item| "#{item[:service]}\n" }.join
+  end
+
 end
